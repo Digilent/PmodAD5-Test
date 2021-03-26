@@ -38,8 +38,8 @@ if hdwf.value == 0:
 print("Configuring the instrument")
 
 print("Configuring SPI...")
-# set the SPI frequency to 6000000 Hz
-dwf.FDwfDigitalSpiFrequencySet(hdwf, c_double(6e6))
+# set the SPI frequency to 1000000 Hz
+dwf.FDwfDigitalSpiFrequencySet(hdwf, c_double(1e6))
 
 # set DIO channel 1 as the SPI clock
 dwf.FDwfDigitalSpiClockSet(hdwf, c_int(1))
