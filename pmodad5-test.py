@@ -112,8 +112,8 @@ dwf.FDwfDigitalSpiSelect(hdwf, c_int(0), c_int(1))
 
 time.sleep(.05)
 
-# write to the mode register, setting averaging to 100
-b = (c_byte*4)(0x08, 0x08, 0x00, 0x64)
+# write to the mode register, setting averaging to 1
+b = (c_byte*4)(0x08, 0x08, 0x00, 0x01)
 
 # set DIO channel 0, operating as SPI CS to low (0)
 dwf.FDwfDigitalSpiSelect(hdwf, c_int(0), c_int(0))
