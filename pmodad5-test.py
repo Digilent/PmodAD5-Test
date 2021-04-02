@@ -171,7 +171,7 @@ try:
         # find the average of the samples
         avg = sum(samples)/len(samples)
         
-        print("Measured %f mV at the thermocouple junction, and got %f mV from the ADC" % (avg * 1000, thermoVoltage)) #(thermo, adc))
+        print("Measured %f mV at the thermocouple junction, and got %f mV from the ADC" % (avg * 1000, thermoVoltage * 1000))
 
         time.sleep(5)
 
