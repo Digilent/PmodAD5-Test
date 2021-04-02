@@ -130,6 +130,28 @@ try:
         # begin analog in acquisition
         dwf.FDwfAnalogInConfigure(hdwf, c_int(1), c_int(1))
 
+        b = (c_ubyte*2)(0x40,0x00)
+        r = (c_ubyte*2)()
+
+        # set DIO channel 0, operating as SPI CS to low (0)
+        dwf.FDwfDigitalSpiSelect(hdwf, c_int(0), c_int(0))
+        
+        # perform a SPI write/read operation of the status register
+        dwf.FDwfDigitalSpiWriteRead(hdwf, c_int(1), c_int(8), b, c_int(len(b)), r, c_int(len(r)))
+
+        # set DIO channel 0, operating as SPI CS to high (1)
+        dwf.FDwfDigitalSpiSelect(hdwf, c_int(0), c_int(1))
+
+        # check the ~RDY bit and if set then continue waiting if it isn't
+        if ((r[1] >> 7 & 1) == 1):
+            print("Conversion not ready")
+            continue
+
+        # check the ERR and halt if encountered
+        if ((r[1] >> 6 & 1) == 1):
+            print("An error in conversion was encountered")
+            break
+
         # issue a read and calculate the temperature from the data
         b = (c_ubyte*4)(0x58,0x00,0x00,0x00)
         r = (c_ubyte*4)()
