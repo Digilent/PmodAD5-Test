@@ -98,8 +98,8 @@ time.sleep(5)
 print("Configuring the ADC")
 print("Writing config...")
 
-# write to the config register, setting the gain to 8, the active channel to 0
-b = (c_ubyte*4)(0x10,0x00,0x01,0x13)
+# write to the config register, setting the gain to 1, the active channel to 0
+b = (c_ubyte*4)(0x10,0x00,0x01,0x10)
 
 # set DIO channel 0, operating as SPI CS to low (0)
 dwf.FDwfDigitalSpiSelect(hdwf, c_int(0), c_int(0))
@@ -185,7 +185,7 @@ try:
         dwf.FDwfAnalogInStatusData(hdwf, 0, samples, 4000)
 
         mVref = 2.5
-        PGAGain = 8
+        PGAGain = 1
 
         # convert the data into a numeric voltage value
         thermoVoltage = (((ch0Data / 8388608) - 1.0) * (mVref / PGAGain))
